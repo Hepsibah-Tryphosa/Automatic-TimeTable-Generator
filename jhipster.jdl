@@ -1,0 +1,57 @@
+application {
+  config {
+    baseName AutomaticTimeTableGenerator
+    applicationType monolith
+    packageName com.hepsibah.timetable
+    authenticationType jwt
+    prodDatabaseType mysql
+	  devDatabaseType mysql
+    clientFramework angularX  	
+  }
+  entities *
+}
+
+enum State {
+    ACTIVE, INACTIVE, TEMP_INACTIVE
+}
+
+entity CollegeInfo{
+  name String required unique maxlength(50)
+  contactNo String required maxlength(10)
+  address String maxlength(100)  
+  city String required maxlength(50)
+}
+
+entity Course{
+	name String required unique maxlength(10)
+}
+
+entity Semister{
+	name String required unique maxlength(10)
+}
+
+entity Subject{
+	name String required unique maxlength(50)
+  reqHrs Integer
+}
+
+
+entity Lecturer{
+    emailId String required unique maxlength(50) pattern(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
+    name String required maxlength(50)  pattern(/^[A-Za-z0-9? ]+$/)
+    empId String  maxlength(50)
+    expYears  Integer                
+  
+}
+
+entity GenerateTimeTable{
+  wokDays Integer
+}
+
+relationship ManyToMany {
+    Lecturer to Subject
+    Semister to Course
+    Course to Subject
+    Semister to Subject
+    
+}

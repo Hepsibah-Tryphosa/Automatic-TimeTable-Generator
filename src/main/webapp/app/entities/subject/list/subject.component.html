@@ -1,0 +1,80 @@
+<div>
+  <h2 id="page-heading" data-cy="SubjectHeading">
+    <span jhiTranslate="automaticTimeTableGeneratorApp.subject.home.title">Subjects</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="automaticTimeTableGeneratorApp.subject.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-subject"
+        [routerLink]="['/subject/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="automaticTimeTableGeneratorApp.subject.home.createLabel"> Create a new Subject </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="subjects?.length === 0">
+    <span jhiTranslate="automaticTimeTableGeneratorApp.subject.home.notFound">No subjects found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="subjects && subjects.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.subject.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.subject.reqHrs">Req Hrs</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subject of subjects; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/subject', subject.id, 'view']">{{ subject.id }}</a>
+          </td>
+          <td>{{ subject.name }}</td>
+          <td>{{ subject.reqHrs }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/subject', subject.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/subject', subject.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(subject)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

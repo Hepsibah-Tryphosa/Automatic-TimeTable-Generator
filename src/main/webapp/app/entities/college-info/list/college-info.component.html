@@ -1,0 +1,84 @@
+<div>
+  <h2 id="page-heading" data-cy="CollegeInfoHeading">
+    <span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.home.title">College Infos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-college-info"
+        [routerLink]="['/college-info/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.home.createLabel"> Create a new College Info </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="collegeInfos?.length === 0">
+    <span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.home.notFound">No collegeInfos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="collegeInfos && collegeInfos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.contactNo">Contact No</span></th>
+          <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.address">Address</span></th>
+          <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.city">City</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let collegeInfo of collegeInfos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/college-info', collegeInfo.id, 'view']">{{ collegeInfo.id }}</a>
+          </td>
+          <td>{{ collegeInfo.name }}</td>
+          <td>{{ collegeInfo.contactNo }}</td>
+          <td>{{ collegeInfo.address }}</td>
+          <td>{{ collegeInfo.city }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/college-info', collegeInfo.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/college-info', collegeInfo.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(collegeInfo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

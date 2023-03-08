@@ -1,0 +1,37 @@
+{
+  "applications": ["AutomaticTimeTableGenerator"],
+  "changelogDate": "20230308040342",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "semister",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "maxlength"],
+      "fieldValidateRulesMaxlength": "10"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Semister",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "semister",
+      "ownerSide": true,
+      "relationshipName": "course",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "subject",
+      "otherEntityRelationshipName": "semister",
+      "ownerSide": true,
+      "relationshipName": "subject",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

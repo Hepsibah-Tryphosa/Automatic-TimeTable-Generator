@@ -1,0 +1,48 @@
+{
+  "applications": ["AutomaticTimeTableGenerator"],
+  "changelogDate": "20230308040542",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "lecturer",
+  "fields": [
+    {
+      "fieldName": "emailId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesPattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "50",
+      "fieldValidateRulesPattern": "^[A-Za-z0-9? ]+$"
+    },
+    {
+      "fieldName": "empId",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "expYears",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Lecturer",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "subject",
+      "otherEntityRelationshipName": "lecturer",
+      "ownerSide": true,
+      "relationshipName": "subject",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

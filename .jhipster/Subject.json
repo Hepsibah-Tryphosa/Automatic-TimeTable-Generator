@@ -1,0 +1,48 @@
+{
+  "applications": ["AutomaticTimeTableGenerator"],
+  "changelogDate": "20230308040442",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "subject",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "reqHrs",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Subject",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "lecturer",
+      "otherEntityRelationshipName": "subject",
+      "ownerSide": false,
+      "relationshipName": "lecturer",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "subject",
+      "ownerSide": false,
+      "relationshipName": "course",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "semister",
+      "otherEntityRelationshipName": "subject",
+      "ownerSide": false,
+      "relationshipName": "semister",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

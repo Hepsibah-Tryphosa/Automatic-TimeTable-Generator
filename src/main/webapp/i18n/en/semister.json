@@ -1,0 +1,26 @@
+{
+  "automaticTimeTableGeneratorApp": {
+    "semister": {
+      "home": {
+        "title": "Semisters",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Semister",
+        "createOrEditLabel": "Create or edit a Semister",
+        "notFound": "No Semisters found"
+      },
+      "created": "A new Semister is created with identifier {{ param }}",
+      "updated": "A Semister is updated with identifier {{ param }}",
+      "deleted": "A Semister is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Semister {{ id }}?"
+      },
+      "detail": {
+        "title": "Semister"
+      },
+      "id": "ID",
+      "name": "Name",
+      "course": "Course",
+      "subject": "Subject"
+    }
+  }
+}

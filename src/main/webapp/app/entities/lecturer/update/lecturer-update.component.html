@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-lecturer-heading"
+        data-cy="LecturerCreateUpdateHeading"
+        jhiTranslate="automaticTimeTableGeneratorApp.lecturer.home.createOrEditLabel"
+      >
+        Create or edit a Lecturer
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="automaticTimeTableGeneratorApp.lecturer.emailId" for="field_emailId">Email Id</label>
+          <input type="text" class="form-control" name="emailId" id="field_emailId" data-cy="emailId" formControlName="emailId" />
+          <div *ngIf="editForm.get('emailId')!.invalid && (editForm.get('emailId')!.dirty || editForm.get('emailId')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('emailId')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('emailId')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('emailId')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Email Id' }"
+            >
+              This field should follow pattern for "Email Id".
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="automaticTimeTableGeneratorApp.lecturer.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('name')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('name')?.errors?.pattern"
+              jhiTranslate="entity.validation.pattern"
+              [translateValues]="{ pattern: 'Name' }"
+            >
+              This field should follow pattern for "Name".
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="automaticTimeTableGeneratorApp.lecturer.empId" for="field_empId">Emp Id</label>
+          <input type="text" class="form-control" name="empId" id="field_empId" data-cy="empId" formControlName="empId" />
+          <div *ngIf="editForm.get('empId')!.invalid && (editForm.get('empId')!.dirty || editForm.get('empId')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('empId')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="automaticTimeTableGeneratorApp.lecturer.expYears" for="field_expYears">Exp Years</label>
+          <input type="number" class="form-control" name="expYears" id="field_expYears" data-cy="expYears" formControlName="expYears" />
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="automaticTimeTableGeneratorApp.lecturer.subject" for="field_subjects">Subject</label>
+          <select class="form-control" id="field_subjects" data-cy="subject" multiple name="subjects" formControlName="subjects">
+            <option
+              [ngValue]="getSelectedSubject(subjectOption, editForm.get('subjects')!.value)"
+              *ngFor="let subjectOption of subjectsSharedCollection; trackBy: trackSubjectById"
+            >
+              {{ subjectOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

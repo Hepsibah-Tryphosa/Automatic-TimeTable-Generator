@@ -1,0 +1,37 @@
+{
+  "applications": ["AutomaticTimeTableGenerator"],
+  "changelogDate": "20230308040242",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "course",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "maxlength"],
+      "fieldValidateRulesMaxlength": "10"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Course",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "subject",
+      "otherEntityRelationshipName": "course",
+      "ownerSide": true,
+      "relationshipName": "subject",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "semister",
+      "otherEntityRelationshipName": "course",
+      "ownerSide": false,
+      "relationshipName": "semister",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}

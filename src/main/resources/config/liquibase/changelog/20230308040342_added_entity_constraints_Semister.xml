@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Semister.
+    -->
+    <changeSet id="20230308040342-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="semister_id"
+                                 baseTableName="rel_semister__course"
+                                 constraintName="fk_rel_semister__course__semister_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="semister"/>
+
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="rel_semister__course"
+                                 constraintName="fk_rel_semister__course__course_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="course"/>
+
+        <addForeignKeyConstraint baseColumnNames="semister_id"
+                                 baseTableName="rel_semister__subject"
+                                 constraintName="fk_rel_semister__subject__semister_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="semister"/>
+
+        <addForeignKeyConstraint baseColumnNames="subject_id"
+                                 baseTableName="rel_semister__subject"
+                                 constraintName="fk_rel_semister__subject__subject_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subject"/>
+    </changeSet>
+</databaseChangeLog>

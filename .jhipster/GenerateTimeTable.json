@@ -1,0 +1,20 @@
+{
+  "applications": ["AutomaticTimeTableGenerator"],
+  "changelogDate": "20230308040642",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "generate_time_table",
+  "fields": [
+    {
+      "fieldName": "wokDays",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GenerateTimeTable",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

@@ -1,0 +1,27 @@
+{
+  "automaticTimeTableGeneratorApp": {
+    "collegeInfo": {
+      "home": {
+        "title": "College Infos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new College Info",
+        "createOrEditLabel": "Create or edit a College Info",
+        "notFound": "No College Infos found"
+      },
+      "created": "A new College Info is created with identifier {{ param }}",
+      "updated": "A College Info is updated with identifier {{ param }}",
+      "deleted": "A College Info is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete College Info {{ id }}?"
+      },
+      "detail": {
+        "title": "College Info"
+      },
+      "id": "ID",
+      "name": "Name",
+      "contactNo": "Contact No",
+      "address": "Address",
+      "city": "City"
+    }
+  }
+}

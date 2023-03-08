@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="collegeInfo">
+      <h2 data-cy="collegeInfoDetailsHeading">
+        <span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.detail.title">College Info</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ collegeInfo.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.name">Name</span></dt>
+        <dd>
+          <span>{{ collegeInfo.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.contactNo">Contact No</span></dt>
+        <dd>
+          <span>{{ collegeInfo.contactNo }}</span>
+        </dd>
+        <dt><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.address">Address</span></dt>
+        <dd>
+          <span>{{ collegeInfo.address }}</span>
+        </dd>
+        <dt><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.city">City</span></dt>
+        <dd>
+          <span>{{ collegeInfo.city }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/college-info', collegeInfo.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
