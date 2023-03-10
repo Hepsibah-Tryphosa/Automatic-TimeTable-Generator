@@ -32,9 +32,9 @@ cp  -rf $srcFilesDir/web/login/* $webappBaseDir/app/login
 # echo "Copying MAIN WEB PAGE..."
 # cp  -rf $srcFilesDir/web/main.component.html $webappBaseDir/app/layouts/main 
 
-#HOME WEB PAGE
-# echo "Copying HOME WEB PAGE..."
-# cp  -rf $srcFilesDir/web/home/* $webappBaseDir/app/home 
+HOME WEB PAGE
+echo "Copying HOME WEB PAGE..."
+cp  -rf $srcFilesDir/web/home/* $webappBaseDir/app/home 
 
 #COPYING IMAGES
 echo "Copying IMAGES..."
