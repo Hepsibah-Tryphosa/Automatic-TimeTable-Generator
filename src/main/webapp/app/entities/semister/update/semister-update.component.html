@@ -42,7 +42,7 @@
               [ngValue]="getSelectedCourse(courseOption, editForm.get('courses')!.value)"
               *ngFor="let courseOption of coursesSharedCollection; trackBy: trackCourseById"
             >
-              {{ courseOption.id }}
+              {{ courseOption.name }}
             </option>
           </select>
         </div>
@@ -54,7 +54,7 @@
               [ngValue]="getSelectedSubject(subjectOption, editForm.get('subjects')!.value)"
               *ngFor="let subjectOption of subjectsSharedCollection; trackBy: trackSubjectById"
             >
-              {{ subjectOption.id }}
+              {{ subjectOption.name }}
             </option>
           </select>
         </div>

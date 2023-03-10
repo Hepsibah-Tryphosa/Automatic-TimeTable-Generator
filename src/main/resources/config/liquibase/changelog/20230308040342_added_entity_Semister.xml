@@ -15,7 +15,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(10)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_semister__name" />
+                <constraints nullable="false"  />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

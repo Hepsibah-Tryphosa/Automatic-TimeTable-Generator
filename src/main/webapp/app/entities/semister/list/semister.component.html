@@ -47,13 +47,13 @@
           <td>{{ semister.name }}</td>
           <td>
             <span *ngFor="let course of semister.courses; let last = last">
-              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a
+              <a class="form-control-static" [routerLink]="['/course', course.id, 'view']">{{ course.name }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>
           <td>
             <span *ngFor="let subject of semister.subjects; let last = last">
-              <a class="form-control-static" [routerLink]="['/subject', subject.id, 'view']">{{ subject.id }}</a
+              <a class="form-control-static" [routerLink]="['/subject', subject.id, 'view']">{{ subject.name }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>

@@ -52,7 +52,7 @@
           <td>{{ lecturer.expYears }}</td>
           <td>
             <span *ngFor="let subject of lecturer.subjects; let last = last">
-              <a class="form-control-static" [routerLink]="['/subject', subject.id, 'view']">{{ subject.id }}</a
+              <a class="form-control-static" [routerLink]="['/subject', subject.id, 'view']">{{ subject.name }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>
