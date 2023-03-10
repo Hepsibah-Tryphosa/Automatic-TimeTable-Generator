@@ -1,9 +1,9 @@
 
 #code\src\main\java\com\emtechies\foodcourt\web\security
 
-
+cd ..
 projectDir=`pwd`/..
-projectBaseDir=$projectDir/code/src/main
+projectBaseDir=$projectDir/src/main
 
 packageBase=com/hepsibah
 projectName=timetable
