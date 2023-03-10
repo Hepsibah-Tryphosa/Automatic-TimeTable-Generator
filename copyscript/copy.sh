@@ -2,7 +2,7 @@
 #code\src\main\java\com\emtechies\foodcourt\web\security
 
 
-projectDir=`pwd`
+projectDir=`pwd`/..
 projectBaseDir=$projectDir/code/src/main
 
 packageBase=com/hepsibah
