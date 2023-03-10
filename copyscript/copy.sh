@@ -10,7 +10,7 @@ projectName=timetable
 javaFileBaseDir=$projectBaseDir/java/$packageBase/$projectName
 resourcesBaseDir=$projectBaseDir/resources
 webappBaseDir=$projectBaseDir/webapp
-srcFilesDir=$projectDir/copyscript/files
+srcFilesDir=$projectDir/files
 
 
 #echo $srcFilesDir/authority.csv
@@ -27,12 +27,12 @@ echo "Copying LOGIN WEB PAGE..."
 cp  -rf $srcFilesDir/web/login/* $webappBaseDir/app/login
 
 #MAIN WEB PAGE
-echo "Copying MAIN WEB PAGE..."
-cp  -rf $srcFilesDir/web/main.component.html $webappBaseDir/app/layouts/main 
+# echo "Copying MAIN WEB PAGE..."
+# cp  -rf $srcFilesDir/web/main.component.html $webappBaseDir/app/layouts/main 
 
 #HOME WEB PAGE
-echo "Copying HOME WEB PAGE..."
-cp  -rf $srcFilesDir/web/home/* $webappBaseDir/app/home 
+# echo "Copying HOME WEB PAGE..."
+# cp  -rf $srcFilesDir/web/home/* $webappBaseDir/app/home 
 
 #COPYING IMAGES
 echo "Copying IMAGES..."
