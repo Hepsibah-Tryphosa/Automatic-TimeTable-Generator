@@ -1,8 +1,10 @@
 
 #code\src\main\java\com\emtechies\foodcourt\web\security
 
-cd ..
-projectDir=`pwd`/..
+#get previous directory
+
+projectDir="$(dirname "$PWD")"
+echo $projectDir
 projectBaseDir=$projectDir/src/main
 
 packageBase=com/hepsibah
@@ -10,7 +12,7 @@ projectName=timetable
 javaFileBaseDir=$projectBaseDir/java/$packageBase/$projectName
 resourcesBaseDir=$projectBaseDir/resources
 webappBaseDir=$projectBaseDir/webapp
-srcFilesDir=$projectDir/files
+srcFilesDir=`pwd`/files
 
 
 #echo $srcFilesDir/authority.csv
