@@ -1,13 +1,16 @@
 package com.hepsibah.timetable.web.rest;
 
-import com.hepsibah.timetable.domain.GenerateTimeTable;
-import com.hepsibah.timetable.repository.GenerateTimeTableRepository;
+import com.hepsibah.timetable.domain.*;
+import com.hepsibah.timetable.repository.*;
 import com.hepsibah.timetable.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +21,8 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link com.hepsibah.timetable.domain.GenerateTimeTable}.
+ * REST controller for managing
+ * {@link com.hepsibah.timetable.domain.GenerateTimeTable}.
  */
 @RestController
 @RequestMapping("/api")
@@ -33,16 +37,37 @@ public class GenerateTimeTableResource {
     private String applicationName;
 
     private final GenerateTimeTableRepository generateTimeTableRepository;
+    private final CourseRepository courseRepository;
+    private final SemisterRepository semisterRepository;
+    private final SubjectRepository subjectRepository;
+    private final LecturerRepository lecturerRepository;
 
-    public GenerateTimeTableResource(GenerateTimeTableRepository generateTimeTableRepository) {
+    // public GenerateTimeTableResource(GenerateTimeTableRepository
+    // generateTimeTableRepository) {
+    // this.generateTimeTableRepository = generateTimeTableRepository;
+    // }
+
+    public GenerateTimeTableResource(
+        GenerateTimeTableRepository generateTimeTableRepository,
+        CourseRepository courseRepository,
+        SemisterRepository semisterRepository,
+        SubjectRepository subjectRepository,
+        LecturerRepository lecturerRepository
+    ) {
         this.generateTimeTableRepository = generateTimeTableRepository;
+        this.courseRepository = courseRepository;
+        this.semisterRepository = semisterRepository;
+        this.subjectRepository = subjectRepository;
+        this.lecturerRepository = lecturerRepository;
     }
 
     /**
      * {@code POST  /generate-time-tables} : Create a new generateTimeTable.
      *
      * @param generateTimeTable the generateTimeTable to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new generateTimeTable, or with status {@code 400 (Bad Request)} if the generateTimeTable has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
+     *         body the new generateTimeTable, or with status
+     *         {@code 400 (Bad Request)} if the generateTimeTable has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/generate-time-tables")
@@ -60,13 +85,17 @@ public class GenerateTimeTableResource {
     }
 
     /**
-     * {@code PUT  /generate-time-tables/:id} : Updates an existing generateTimeTable.
+     * {@code PUT  /generate-time-tables/:id} : Updates an existing
+     * generateTimeTable.
      *
-     * @param id the id of the generateTimeTable to save.
+     * @param id                the id of the generateTimeTable to save.
      * @param generateTimeTable the generateTimeTable to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated generateTimeTable,
-     * or with status {@code 400 (Bad Request)} if the generateTimeTable is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the generateTimeTable couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated generateTimeTable,
+     *         or with status {@code 400 (Bad Request)} if the generateTimeTable is
+     *         not valid,
+     *         or with status {@code 500 (Internal Server Error)} if the
+     *         generateTimeTable couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/generate-time-tables/{id}")
@@ -94,14 +123,19 @@ public class GenerateTimeTableResource {
     }
 
     /**
-     * {@code PATCH  /generate-time-tables/:id} : Partial updates given fields of an existing generateTimeTable, field will ignore if it is null
+     * {@code PATCH  /generate-time-tables/:id} : Partial updates given fields of an
+     * existing generateTimeTable, field will ignore if it is null
      *
-     * @param id the id of the generateTimeTable to save.
+     * @param id                the id of the generateTimeTable to save.
      * @param generateTimeTable the generateTimeTable to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated generateTimeTable,
-     * or with status {@code 400 (Bad Request)} if the generateTimeTable is not valid,
-     * or with status {@code 404 (Not Found)} if the generateTimeTable is not found,
-     * or with status {@code 500 (Internal Server Error)} if the generateTimeTable couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated generateTimeTable,
+     *         or with status {@code 400 (Bad Request)} if the generateTimeTable is
+     *         not valid,
+     *         or with status {@code 404 (Not Found)} if the generateTimeTable is
+     *         not found,
+     *         or with status {@code 500 (Internal Server Error)} if the
+     *         generateTimeTable couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/generate-time-tables/{id}", consumes = { "application/json", "application/merge-patch+json" })
@@ -141,7 +175,8 @@ public class GenerateTimeTableResource {
     /**
      * {@code GET  /generate-time-tables} : get all the generateTimeTables.
      *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of generateTimeTables in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of generateTimeTables in body.
      */
     @GetMapping("/generate-time-tables")
     public List<GenerateTimeTable> getAllGenerateTimeTables() {
@@ -153,7 +188,8 @@ public class GenerateTimeTableResource {
      * {@code GET  /generate-time-tables/:id} : get the "id" generateTimeTable.
      *
      * @param id the id of the generateTimeTable to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the generateTimeTable, or with status {@code 404 (Not Found)}.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the generateTimeTable, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/generate-time-tables/{id}")
     public ResponseEntity<GenerateTimeTable> getGenerateTimeTable(@PathVariable Long id) {
@@ -162,8 +198,40 @@ public class GenerateTimeTableResource {
         return ResponseUtil.wrapOrNotFound(generateTimeTable);
     }
 
+    @GetMapping("/generate-time-tables/{course}/{semester}/{periods}")
+    public ResponseEntity<WeeklyTimeTable> getGenerateTimeTableBySem(
+        @PathVariable String course,
+        @PathVariable String semester,
+        @PathVariable String periods
+    ) {
+        WeeklyTimeTable weeeklyTimeTable = generateWeeklyTimeTable(course, semester, periods);
+        log.debug("REST request to get GenerateTimeTable : {}", course);
+
+        return ResponseUtil.wrapOrNotFound(Optional.of(weeeklyTimeTable));
+    }
+
+    WeeklyTimeTable generateWeeklyTimeTable(String course, String semester, String periods) {
+        // private final CourseRepository courseRepository;
+        // private final SemisterRepository semisterRepository;
+        // private final SubjectRepository subjectRepository;
+        // private final LecturerRepository lecturerRepository;
+
+        // Find matched courses from semisterRepository
+        List<Semister> semList = semisterRepository
+            .findAllWithEagerRelationships()
+            .parallelStream()
+            .filter(sem -> sem.getName().equals(semester))
+            .collect(Collectors.toList());
+        System.out.println(semList.get(0).getName());
+
+        return null;
+    }
+
+    // WeeeklyTimeTable weeeklyTimeTable = new WeeeklyTimeTable();
+
     /**
-     * {@code DELETE  /generate-time-tables/:id} : delete the "id" generateTimeTable.
+     * {@code DELETE  /generate-time-tables/:id} : delete the "id"
+     * generateTimeTable.
      *
      * @param id the id of the generateTimeTable to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
