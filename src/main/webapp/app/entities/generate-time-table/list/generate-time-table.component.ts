@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { FormBuilder, Validators } from '@angular/forms';
 import { IGenerateTimeTable } from '../generate-time-table.model';
 import { GenerateTimeTableService } from '../service/generate-time-table.service';
 import { GenerateTimeTableDeleteDialogComponent } from '../delete/generate-time-table-delete-dialog.component';
@@ -15,8 +15,13 @@ export class GenerateTimeTableComponent implements OnInit {
   generateTimeTables?: IDailyTimeTable[];
   headersTimeTable?: string[];
   isLoading = false;
-
-  constructor(protected generateTimeTableService: GenerateTimeTableService, protected modalService: NgbModal) {}
+  editForm = this.fb.group({
+    id: [],
+    coursename: [null, [Validators.required, Validators.maxLength(10)]],
+    semistername: [null, [Validators.required, Validators.maxLength(10)]],
+    classesPerDay: [null, [Validators.required, Validators.maxLength(10)]],
+  });
+  constructor(protected generateTimeTableService: GenerateTimeTableService, protected modalService: NgbModal, protected fb: FormBuilder) {}
 
   loadAll(courseName: string, semName: string, noOfClassesPerDay: string): void {
     this.isLoading = true;
@@ -49,5 +54,13 @@ export class GenerateTimeTableComponent implements OnInit {
     const modalRef = this.modalService.open(GenerateTimeTableDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.generateTimeTable = generateTimeTable;
     // unsubscribe not needed because closed completes on modal close
+  }
+
+  editFormSubmit(): void {
+    this.loadAll(
+      this.editForm.get(['coursename'])!.value,
+      this.editForm.get(['semistername'])!.value,
+      this.editForm.get(['classesPerDay'])!.value
+    );
   }
 }

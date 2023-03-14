@@ -245,6 +245,7 @@ public class GenerateTimeTableResource {
                 dt.setWeekName(weekName);
                 dt.setNoOfClassesPerDay(periods);
             }
+            Collections.shuffle(dt.getPeriods());
             weekTimeTable.add(dt);
         }
         return weekTimeTable;
