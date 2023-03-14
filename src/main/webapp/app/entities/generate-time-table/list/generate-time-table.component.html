@@ -3,17 +3,7 @@
     <span jhiTranslate="automaticTimeTableGeneratorApp.generateTimeTable.home.title">Generate Time Tables</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span jhiTranslate="automaticTimeTableGeneratorApp.generateTimeTable.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-generate-time-table"
-        [routerLink]="['/generate-time-table/new']"
-      >
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-generate-time-table">
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="automaticTimeTableGeneratorApp.generateTimeTable.home.createLabel"> Create a new Generate Time Table </span>
       </button>
@@ -32,45 +22,21 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.generateTimeTable.wokDays">Wok Days</span></th>
+          <th scope="col"><span>Day of Week</span></th>
+
+          <!-- ng for loop with up to index-->
+
+          <th scope="col" *ngFor="let headerColName of headersTimeTable" data-cy="entityTable">
+            <span>{{ headerColName }}</span>
+          </th>
+
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let generateTimeTable of generateTimeTables; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/generate-time-table', generateTimeTable.id, 'view']">{{ generateTimeTable.id }}</a>
-          </td>
-          <td>{{ generateTimeTable.wokDays }}</td>
-          <td class="text-end">
-            <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/generate-time-table', generateTimeTable.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-              </button>
-
-              <button
-                type="submit"
-                [routerLink]="['/generate-time-table', generateTimeTable.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(generateTimeTable)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
-          </td>
+        <tr *ngFor="let generateTimeTable of generateTimeTables" data-cy="entityTable">
+          <td>{{ generateTimeTable.weekName }}</td>
+          <td *ngFor="let period of generateTimeTable.periods">{{ period.subjectName }}<br />{{ period.lecturerName }}</td>
         </tr>
       </tbody>
     </table>

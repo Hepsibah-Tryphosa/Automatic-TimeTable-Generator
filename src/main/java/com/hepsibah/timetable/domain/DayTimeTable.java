@@ -1,12 +1,13 @@
 package com.hepsibah.timetable.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DayTimeTable {
 
     String weekName;
     int noOfClassesPerDay;
-    List<Period> periods;
+    List<Period> periods = new ArrayList<>();
 
     public DayTimeTable() {}
 

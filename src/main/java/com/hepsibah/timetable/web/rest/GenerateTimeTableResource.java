@@ -5,12 +5,14 @@ import com.hepsibah.timetable.repository.*;
 import com.hepsibah.timetable.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.util.*;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import liquibase.pro.packaged.l;
+import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -199,18 +201,18 @@ public class GenerateTimeTableResource {
     }
 
     @GetMapping("/generate-time-tables/{course}/{semester}/{periods}")
-    public ResponseEntity<WeeklyTimeTable> getGenerateTimeTableBySem(
+    public ResponseEntity<List<DayTimeTable>> getGenerateTimeTableBySem(
         @PathVariable String course,
         @PathVariable String semester,
         @PathVariable String periods
     ) {
-        WeeklyTimeTable weeeklyTimeTable = generateWeeklyTimeTable(course, semester, periods);
+        List<DayTimeTable> weeeklyTimeTable = generateWeeklyTimeTable(course, semester, Integer.parseInt(periods));
         log.debug("REST request to get GenerateTimeTable : {}", course);
 
         return ResponseUtil.wrapOrNotFound(Optional.of(weeeklyTimeTable));
     }
 
-    WeeklyTimeTable generateWeeklyTimeTable(String course, String semester, String periods) {
+    List<DayTimeTable> generateWeeklyTimeTable(String course, String semester, int periods) {
         // private final CourseRepository courseRepository;
         // private final SemisterRepository semisterRepository;
         // private final SubjectRepository subjectRepository;
@@ -224,7 +226,28 @@ public class GenerateTimeTableResource {
             .collect(Collectors.toList());
         System.out.println(semList.get(0).getName());
 
-        return null;
+        Subject subject[] = semList.get(0).getSubjects().toArray(new Subject[] {});
+
+        String weekDaysNames[] = new String[] { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY" };
+
+        List<DayTimeTable> weekTimeTable = new ArrayList();
+
+        for (String weekName : weekDaysNames) {
+            DayTimeTable dt = new DayTimeTable();
+            for (int i = 0; i < periods && i < subject.length; i++) {
+                Period p = new Period();
+                p.setSubjectName(subject[i].getName());
+                p.setPeriodNo(i + 1);
+                p.setPeriodType("Class");
+                Lecturer subLect[] = subject[i].getLecturers().toArray(new Lecturer[] {});
+                if (subLect.length > 0) p.setLecturerName(subLect[0].getName());
+                dt.getPeriods().add(p);
+                dt.setWeekName(weekName);
+                dt.setNoOfClassesPerDay(periods);
+            }
+            weekTimeTable.add(dt);
+        }
+        return weekTimeTable;
     }
 
     // WeeeklyTimeTable weeeklyTimeTable = new WeeeklyTimeTable();

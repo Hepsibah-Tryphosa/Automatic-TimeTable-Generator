@@ -6,9 +6,11 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IGenerateTimeTable, getGenerateTimeTableIdentifier } from '../generate-time-table.model';
+import { IDailyTimeTable, IWeeklyTimeTable } from '../generate-weekly-timetable.model';
 
 export type EntityResponseType = HttpResponse<IGenerateTimeTable>;
 export type EntityArrayResponseType = HttpResponse<IGenerateTimeTable[]>;
+export type EntityTimetableArrayResponseType = HttpResponse<IDailyTimeTable[]>;
 
 @Injectable({ providedIn: 'root' })
 export class GenerateTimeTableService {
@@ -43,6 +45,11 @@ export class GenerateTimeTableService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IGenerateTimeTable[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
+
+  generateTimetable(courseName: string, semName: string, noOfClassesPerDay: string): Observable<EntityTimetableArrayResponseType> {
+    // const options = createRequestOption({courseName,semName,noOfClassesPerDay});
+    return this.http.get<IDailyTimeTable[]>(`${this.resourceUrl}/${courseName}/${semName}/${noOfClassesPerDay}`, { observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
