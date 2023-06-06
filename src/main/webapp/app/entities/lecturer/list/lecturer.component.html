@@ -32,7 +32,7 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <!-- <th scope="col"><span jhiTranslate="global.field.id">ID</span></th> -->
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.lecturer.emailId">Email Id</span></th>
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.lecturer.name">Name</span></th>
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.lecturer.empId">Emp Id</span></th>
@@ -43,9 +43,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let lecturer of lecturers; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <!-- <td>
             <a [routerLink]="['/lecturer', lecturer.id, 'view']">{{ lecturer.id }}</a>
-          </td>
+          </td> -->
           <td>{{ lecturer.emailId }}</td>
           <td>{{ lecturer.name }}</td>
           <td>{{ lecturer.empId }}</td>

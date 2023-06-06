@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="SubjectHeading">
-    <span jhiTranslate="automaticTimeTableGeneratorApp.subject.home.title">Subjects</span>
+    <span>Courses</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
@@ -15,7 +15,7 @@
         [routerLink]="['/subject/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="automaticTimeTableGeneratorApp.subject.home.createLabel"> Create a new Subject </span>
+        <span> Create a new Courses </span>
       </button>
     </div>
   </h2>
@@ -32,7 +32,7 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <!-- <th scope="col"><span jhiTranslate="global.field.id">ID</span></th> -->
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.subject.name">Name</span></th>
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.subject.reqHrs">Req Hrs</span></th>
           <th scope="col"></th>
@@ -40,9 +40,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let subject of subjects; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <!-- <td>
             <a [routerLink]="['/subject', subject.id, 'view']">{{ subject.id }}</a>
-          </td>
+          </td> -->
           <td>{{ subject.name }}</td>
           <td>{{ subject.reqHrs }}</td>
           <td class="text-end">

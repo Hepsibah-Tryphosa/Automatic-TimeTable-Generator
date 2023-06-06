@@ -32,7 +32,7 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <!-- <th scope="col"><span jhiTranslate="global.field.id">ID</span></th> -->
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.semister.name">Name</span></th>
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.semister.course">Course</span></th>
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.semister.subject">Subject</span></th>
@@ -41,9 +41,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let semister of semisters; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <!-- <td>
             <a [routerLink]="['/semister', semister.id, 'view']">{{ semister.id }}</a>
-          </td>
+          </td> -->
           <td>{{ semister.name }}</td>
           <td>
             <span *ngFor="let course of semister.courses; let last = last">

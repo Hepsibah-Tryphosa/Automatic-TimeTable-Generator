@@ -32,7 +32,7 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <!-- <th scope="col"><span jhiTranslate="global.field.id">ID</span></th> -->
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.name">Name</span></th>
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.contactNo">Contact No</span></th>
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.collegeInfo.address">Address</span></th>
@@ -42,9 +42,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let collegeInfo of collegeInfos; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <!-- <td>
             <a [routerLink]="['/college-info', collegeInfo.id, 'view']">{{ collegeInfo.id }}</a>
-          </td>
+          </td> -->
           <td>{{ collegeInfo.name }}</td>
           <td>{{ collegeInfo.contactNo }}</td>
           <td>{{ collegeInfo.address }}</td>

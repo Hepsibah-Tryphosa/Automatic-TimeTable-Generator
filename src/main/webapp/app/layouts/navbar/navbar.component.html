@@ -2,9 +2,12 @@
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
-      <span jhiTranslate="global.title" class="navbar-title">AutomaticTimeTableGenerator</span>
-      <span class="navbar-version">{{ version }}</span>
+      <span class="navbar-title">SCIENT INSTITUTE OF TECHNOLOGY </span>
+      <div>
+        <span> Automatic TimeTable Generator</span>
+      </div>
     </a>
+
     <a
       class="navbar-toggler d-lg-none"
       href="javascript:void(0);"
@@ -64,7 +67,7 @@
                 (click)="collapseNavbar()"
               >
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.course">Course</span>
+                <span>Program</span>
               </a>
             </li>
             <li>
@@ -88,7 +91,7 @@
                 (click)="collapseNavbar()"
               >
                 <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.subject">Subject</span>
+                <span>Course</span>
               </a>
             </li>
             <li>

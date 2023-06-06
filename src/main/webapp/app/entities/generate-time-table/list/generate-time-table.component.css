@@ -1,0 +1,16 @@
+@media print {
+  .certifcate-bg img {
+    display: inline;
+    background-size: 100% auto;
+  }
+  #printcertificate {
+    max-width: 50%;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important; /*Chrome, Safari */
+    color-adjust: exact !important; /*Firefox*/
+  }
+}

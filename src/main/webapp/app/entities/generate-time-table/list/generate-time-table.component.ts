@@ -10,6 +10,7 @@ import { IDailyTimeTable } from '../generate-weekly-timetable.model';
 @Component({
   selector: 'jhi-generate-time-table',
   templateUrl: './generate-time-table.component.html',
+  styleUrls: ['./generate-time-table.component.css'],
 })
 export class GenerateTimeTableComponent implements OnInit {
   generateTimeTables?: IDailyTimeTable[];
@@ -54,6 +55,14 @@ export class GenerateTimeTableComponent implements OnInit {
     const modalRef = this.modalService.open(GenerateTimeTableDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.generateTimeTable = generateTimeTable;
     // unsubscribe not needed because closed completes on modal close
+  }
+
+  SaveToPdf(): void {
+    const printContents = document.getElementById('printcertificate')!.innerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
   }
 
   editFormSubmit(): void {

@@ -32,3 +32,16 @@ Main page styles
     background-size: contain;
   }
 }
+
+.carousel .carousel-item {
+  height: 500px;
+}
+
+.carousel-item img {
+  position: absolute;
+  object-fit: fill;
+
+  top: 0;
+  left: 0;
+  min-height: 500px;
+}

@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="CourseHeading">
-    <span jhiTranslate="automaticTimeTableGeneratorApp.course.home.title">Courses</span>
+    <span>Program</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
@@ -15,7 +15,7 @@
         [routerLink]="['/course/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span jhiTranslate="automaticTimeTableGeneratorApp.course.home.createLabel"> Create a new Course </span>
+        <span jhiTranslate="automaticTimeTableGeneratorApp.course.home.createLabel"> Create a new Program </span>
       </button>
     </div>
   </h2>
@@ -25,14 +25,14 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="courses?.length === 0">
-    <span jhiTranslate="automaticTimeTableGeneratorApp.course.home.notFound">No courses found</span>
+    <span jhiTranslate="automaticTimeTableGeneratorApp.course.home.notFound">No Programs found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="courses && courses.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <!-- <th scope="col"><span jhiTranslate="global.field.id">ID</span></th> -->
           <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.course.name">Name</span></th>
           <!-- <th scope="col"><span jhiTranslate="automaticTimeTableGeneratorApp.course.subject">Subject</span></th> -->
           <th scope="col"></th>
@@ -40,9 +40,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let course of courses; trackBy: trackId" data-cy="entityTable">
-          <td>
+          <!-- <td>
             <a [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a>
-          </td>
+          </td> -->
           <td>{{ course.name }}</td>
           <!-- <td>
             <span *ngFor="let subject of course.subjects; let last = last">

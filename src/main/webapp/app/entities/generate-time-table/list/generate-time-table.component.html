@@ -11,6 +11,7 @@
 
   <div>
     <br />
+
     <form name="editForm" role="form" novalidate (ngSubmit)="editFormSubmit()" [formGroup]="editForm">
       <div class="row">
         <div class="col mb-3">
@@ -86,6 +87,8 @@
         </div>
 
         <div class="d-flex justify-content-end">
+          <button class="btn btn-primary" (click)="SaveToPdf()">Save Time Table</button>
+          <span>&nbsp;&nbsp;</span>
           <button
             type="submit"
             id="jh-create-entity"
@@ -103,8 +106,8 @@
   <div class="alert alert-warning" id="no-result" *ngIf="generateTimeTables?.length === 0">
     <span jhiTranslate="automaticTimeTableGeneratorApp.generateTimeTable.home.notFound">No generateTimeTables found</span>
   </div>
-
-  <div class="table-responsive" id="entities" *ngIf="generateTimeTables && generateTimeTables.length > 0">
+  <!-- id="entities"  -->
+  <div id="printcertificate" class="table-responsive" *ngIf="generateTimeTables && generateTimeTables.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
