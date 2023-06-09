@@ -2,20 +2,20 @@
   "automaticTimeTableGeneratorApp": {
     "semister": {
       "home": {
-        "title": "Semisters",
+        "title": "Semesters",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Semister",
-        "createOrEditLabel": "Create or edit a Semister",
-        "notFound": "No Semisters found"
+        "createLabel": "Create a new Semester",
+        "createOrEditLabel": "Create or edit a Semester",
+        "notFound": "No Semester found"
       },
-      "created": "A new Semister is created with identifier {{ param }}",
-      "updated": "A Semister is updated with identifier {{ param }}",
-      "deleted": "A Semister is deleted with identifier {{ param }}",
+      "created": "A new Semester is created with identifier {{ param }}",
+      "updated": "A Semester is updated with identifier {{ param }}",
+      "deleted": "A Semester is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Semister {{ id }}?"
+        "question": "Are you sure you want to delete Semester {{ id }}?"
       },
       "detail": {
-        "title": "Semister"
+        "title": "Semester"
       },
       "id": "ID",
       "name": "Name",

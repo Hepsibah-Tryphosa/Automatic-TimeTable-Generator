@@ -15,7 +15,7 @@
     <form name="editForm" role="form" novalidate (ngSubmit)="editFormSubmit()" [formGroup]="editForm">
       <div class="row">
         <div class="col mb-3">
-          <label class="form-label" for="field_name">Course</label>
+          <label class="form-label" for="field_name">Program</label>
           <input type="text" class="form-control" name="coursename" id="field_name" data-cy="name" formControlName="coursename" />
           <div *ngIf="editForm.get('coursename')!.invalid && (editForm.get('coursename')!.dirty || editForm.get('coursename')!.touched)">
             <small

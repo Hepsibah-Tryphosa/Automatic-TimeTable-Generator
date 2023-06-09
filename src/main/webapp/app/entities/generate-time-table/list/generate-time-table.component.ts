@@ -6,7 +6,11 @@ import { IGenerateTimeTable } from '../generate-time-table.model';
 import { GenerateTimeTableService } from '../service/generate-time-table.service';
 import { GenerateTimeTableDeleteDialogComponent } from '../delete/generate-time-table-delete-dialog.component';
 import { IDailyTimeTable } from '../generate-weekly-timetable.model';
-
+import { CourseService } from 'app/entities/course/service/course.service';
+import { SemisterService } from 'app/entities/semister/service/semister.service';
+import { ICourse } from 'app/entities/course/course.model';
+import { Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
 @Component({
   selector: 'jhi-generate-time-table',
   templateUrl: './generate-time-table.component.html',
@@ -15,14 +19,22 @@ import { IDailyTimeTable } from '../generate-weekly-timetable.model';
 export class GenerateTimeTableComponent implements OnInit {
   generateTimeTables?: IDailyTimeTable[];
   headersTimeTable?: string[];
+  coursesSharedCollection: ICourse[] = [];
   isLoading = false;
   editForm = this.fb.group({
     id: [],
     coursename: [null, [Validators.required, Validators.maxLength(10)]],
     semistername: [null, [Validators.required, Validators.maxLength(10)]],
     classesPerDay: [null, [Validators.required, Validators.maxLength(10)]],
+    courses: [],
   });
-  constructor(protected generateTimeTableService: GenerateTimeTableService, protected modalService: NgbModal, protected fb: FormBuilder) {}
+  constructor(
+    protected semisterService: SemisterService,
+    protected courseService: CourseService,
+    protected generateTimeTableService: GenerateTimeTableService,
+    protected modalService: NgbModal,
+    protected fb: FormBuilder
+  ) {}
 
   loadAll(courseName: string, semName: string, noOfClassesPerDay: string): void {
     this.isLoading = true;
@@ -33,8 +45,18 @@ export class GenerateTimeTableComponent implements OnInit {
         this.generateTimeTables = res.body ?? [];
         const cpd = this.generateTimeTables[0].noOfClassesPerDay ?? 0;
         this.headersTimeTable = new Array(cpd);
+        const hashmap = new Map();
+        hashmap.set(1, '9:30 AM - 10:20 AM');
+        hashmap.set(2, '10:20 AM - 11:10 AM');
+        hashmap.set(3, '11:10 AM - 12:00 PM');
+        hashmap.set(4, '12:00 PM - 12:50 PM');
+        hashmap.set(5, '12:50 PM - 1:30 PM');
+        hashmap.set(6, '1:30 PM - 2:20 PM');
+        hashmap.set(7, '2:20 PM - 3:10 PM');
+        hashmap.set(8, '3:10 PM - 4:00 PM');
+
         for (let i = 0; i < cpd; i++) {
-          this.headersTimeTable[i] = `CLASS-${i + 1}`;
+          this.headersTimeTable[i] = hashmap.get(i + 1);
         }
       },
       error: () => {
@@ -45,6 +67,15 @@ export class GenerateTimeTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAll('ECE', '1-1', '6');
+    this.courseService
+      .query()
+      .pipe(map((res: HttpResponse<ICourse[]>) => res.body ?? []))
+      .pipe(
+        map((courses: ICourse[]) =>
+          this.courseService.addCourseToCollectionIfMissing(courses, ...(this.editForm.get('courses')!.value ?? []))
+        )
+      )
+      .subscribe((courses: ICourse[]) => (this.coursesSharedCollection = courses));
   }
 
   trackId(_index: number, item: IGenerateTimeTable): number {
@@ -60,8 +91,9 @@ export class GenerateTimeTableComponent implements OnInit {
   SaveToPdf(): void {
     const printContents = document.getElementById('printcertificate')!.innerHTML;
     const originalContents = document.body.innerHTML;
+    document.title = 'Time Table';
     document.body.innerHTML = printContents;
-    window.print();
+    window.window.print();
     document.body.innerHTML = originalContents;
   }
 

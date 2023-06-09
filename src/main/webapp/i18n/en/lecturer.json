@@ -2,26 +2,26 @@
   "automaticTimeTableGeneratorApp": {
     "lecturer": {
       "home": {
-        "title": "Lecturers",
+        "title": "Facultys",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Lecturer",
-        "createOrEditLabel": "Create or edit a Lecturer",
-        "notFound": "No Lecturers found"
+        "createLabel": "Create a new Faculty",
+        "createOrEditLabel": "Create or edit a Faculty",
+        "notFound": "No Facultys found"
       },
-      "created": "A new Lecturer is created with identifier {{ param }}",
-      "updated": "A Lecturer is updated with identifier {{ param }}",
-      "deleted": "A Lecturer is deleted with identifier {{ param }}",
+      "created": "A new Faculty is created with identifier {{ param }}",
+      "updated": "A Faculty is updated with identifier {{ param }}",
+      "deleted": "A Faculty is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Lecturer {{ id }}?"
+        "question": "Are you sure you want to delete Faculty {{ id }}?"
       },
       "detail": {
-        "title": "Lecturer"
+        "title": "Faculty"
       },
       "id": "ID",
       "emailId": "Email Id",
       "name": "Name",
       "empId": "Emp Id",
-      "expYears": "Exp Years",
+      "expYears": "Exp(in Years)",
       "subject": "Subject"
     }
   }
