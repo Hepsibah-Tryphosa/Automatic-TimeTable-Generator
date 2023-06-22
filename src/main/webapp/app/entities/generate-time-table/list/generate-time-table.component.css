@@ -1,16 +1,22 @@
-@media print {
-  .certifcate-bg img {
-    display: inline;
-    background-size: 100% auto;
-  }
-  #printcertificate {
-    max-width: 50%;
-  }
+#collegInfo {
+  display: none;
 }
 
 @media print {
-  * {
-    -webkit-print-color-adjust: exact !important; /*Chrome, Safari */
-    color-adjust: exact !important; /*Firefox*/
+  #collegInfo {
+    display: block;
+  }
+  #printable {
+    display: block;
   }
 }
+/* #printtitle {
+  visibility: hidden;
+} */
+
+/* @media print {
+  * {
+    -webkit-print-color-adjust: exact !important; 
+    color-adjust: exact !important; 
+  }
+} */

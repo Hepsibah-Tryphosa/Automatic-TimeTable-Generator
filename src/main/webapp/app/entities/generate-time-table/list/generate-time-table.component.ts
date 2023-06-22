@@ -11,6 +11,7 @@ import { SemisterService } from 'app/entities/semister/service/semister.service'
 import { ICourse } from 'app/entities/course/course.model';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
+import { ISemister } from 'app/entities/semister/semister.model';
 @Component({
   selector: 'jhi-generate-time-table',
   templateUrl: './generate-time-table.component.html',
@@ -20,11 +21,13 @@ export class GenerateTimeTableComponent implements OnInit {
   generateTimeTables?: IDailyTimeTable[];
   headersTimeTable?: string[];
   coursesSharedCollection: ICourse[] = [];
+  semisters?: ISemister[];
   isLoading = false;
+  isPrint = false;
   editForm = this.fb.group({
     id: [],
-    coursename: [null, [Validators.required, Validators.maxLength(10)]],
-    semistername: [null, [Validators.required, Validators.maxLength(10)]],
+    coursename: [null, [Validators.maxLength(10)]],
+    semistername: [null, [Validators.maxLength(10)]],
     classesPerDay: [null, [Validators.required, Validators.maxLength(10)]],
     courses: [],
   });
@@ -43,7 +46,8 @@ export class GenerateTimeTableComponent implements OnInit {
       next: (res: HttpResponse<IDailyTimeTable[]>) => {
         this.isLoading = false;
         this.generateTimeTables = res.body ?? [];
-        const cpd = this.generateTimeTables[0].noOfClassesPerDay ?? 0;
+        // const cpd = this.generateTimeTables[0].noOfClassesPerDay ?? 0;
+        const cpd = 7;
         this.headersTimeTable = new Array(cpd);
         const hashmap = new Map();
         hashmap.set(1, '9:30 AM - 10:20 AM');
@@ -66,7 +70,7 @@ export class GenerateTimeTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAll('ECE', '1-1', '6');
+    this.loadAll('ECE', '1-1', '7');
     this.courseService
       .query()
       .pipe(map((res: HttpResponse<ICourse[]>) => res.body ?? []))
@@ -76,12 +80,50 @@ export class GenerateTimeTableComponent implements OnInit {
         )
       )
       .subscribe((courses: ICourse[]) => (this.coursesSharedCollection = courses));
+
+    this.semisterService.query().subscribe({
+      next: (res: HttpResponse<ISemister[]>) => {
+        this.isLoading = false;
+        this.semisters = res.body ?? [];
+      },
+      error: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   trackId(_index: number, item: IGenerateTimeTable): number {
     return item.id!;
   }
+  trackCourseById(_index: number, item: ICourse): number {
+    return item.id!;
+  }
 
+  trackSemseterById(_index: number, item: ISemister): number {
+    return item.id!;
+  }
+
+  getSelectedSemester(option: ISemister, selectedVals?: ISemister[]): ICourse {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
+  getSelectedCourse(option: ICourse, selectedVals?: ICourse[]): ICourse {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
   delete(generateTimeTable: IGenerateTimeTable): void {
     const modalRef = this.modalService.open(GenerateTimeTableDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.generateTimeTable = generateTimeTable;
@@ -89,18 +131,25 @@ export class GenerateTimeTableComponent implements OnInit {
   }
 
   SaveToPdf(): void {
-    const printContents = document.getElementById('printcertificate')!.innerHTML;
+    // this.isPrint = true;
+    const printContents = document.getElementById('printarea')!.innerHTML;
     const originalContents = document.body.innerHTML;
     document.title = 'Time Table';
     document.body.innerHTML = printContents;
     window.window.print();
     document.body.innerHTML = originalContents;
+    // this.isPrint = false;
   }
 
   editFormSubmit(): void {
+    // this.loadAll('ECE', '1-1', '6');
+    const smnm = (this.editForm.get(['semistername'])!.value as ISemister).name!;
+    // print();
     this.loadAll(
-      this.editForm.get(['coursename'])!.value,
-      this.editForm.get(['semistername'])!.value,
+      (this.editForm.get(['coursename'])!.value as ICourse).name!,
+      // 'ECE',
+      // '1-1',
+      smnm,
       this.editForm.get(['classesPerDay'])!.value
     );
   }

@@ -14,50 +14,37 @@
 
     <form name="editForm" role="form" novalidate (ngSubmit)="editFormSubmit()" [formGroup]="editForm">
       <div class="row">
-        <div class="col mb-3">
+        <!-- <div class="col mb-3">
           <label class="form-label" for="field_name">Program</label>
-          <input type="text" class="form-control" name="coursename" id="field_name" data-cy="name" formControlName="coursename" />
-          <div *ngIf="editForm.get('coursename')!.invalid && (editForm.get('coursename')!.dirty || editForm.get('coursename')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('coursename')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('coursename')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 10 }"
-            >
-              This field cannot be longer than 10 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="col mb-3">
-          <label class="form-label" for="field_name"> Semester Name</label>
-          <input type="text" class="form-control" name="semistername" id="field_name" data-cy="name" formControlName="semistername" />
+          <input type="text" class="form-control" name="coursename" id="field_name" data-cy="name"
+            formControlName="coursename" />
           <div
-            *ngIf="editForm.get('semistername')!.invalid && (editForm.get('semistername')!.dirty || editForm.get('semistername')!.touched)"
-          >
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('semistername')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
+            *ngIf="editForm.get('coursename')!.invalid && (editForm.get('coursename')!.dirty || editForm.get('coursename')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('coursename')?.errors?.required"
+              jhiTranslate="entity.validation.required">
               This field is required.
             </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('semistername')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 10 }"
-            >
+            <small class="form-text text-danger" *ngIf="editForm.get('coursename')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
               This field cannot be longer than 10 characters.
             </small>
           </div>
+        </div> -->
+        <div col mb-3>
+          <label jhiTranslate="automaticTimeTableGeneratorApp.semister.course" for="field_courses">Course</label>
+          <select class="form-control" id="field_courses" data-cy="course" name="coursename" formControlName="coursename">
+            <option [ngValue]="courseOption" *ngFor="let courseOption of coursesSharedCollection; trackBy: trackCourseById">
+              {{ courseOption.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col mb-3">
+          <label class="form-label" for="field_courses"> Semester Name</label>
+          <select class="form-control" id="field_courses" data-cy="course" name="semistername" formControlName="semistername">
+            <option [ngValue]="semseterOption" *ngFor="let semseterOption of semisters; trackBy: trackSemseterById">
+              {{ semseterOption.name }}
+            </option>
+          </select>
         </div>
 
         <div class="col mb-3">
@@ -107,30 +94,42 @@
     <span jhiTranslate="automaticTimeTableGeneratorApp.generateTimeTable.home.notFound">No generateTimeTables found</span>
   </div>
   <!-- id="entities"  -->
-  <div id="printcertificate" class="table-responsive" *ngIf="generateTimeTables && generateTimeTables.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr>
-          <th scope="col"><span>Day of Week</span></th>
+  <div id="printarea">
+    <div class="collegInfo text-center">
+      <h1>SCIENT College of Engineering</h1>
+    </div>
+    <div id="printable" class="table-responsive" *ngIf="generateTimeTables && generateTimeTables.length > 0">
+      <!-- 
+     id="printtitle"
+    <h2 id="page-heading" data-cy="GenerateTimeTableHeading">
+    <span >SCIENT College of Engineering</span>
+    <br />
+    <br />
+  </h2> -->
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr>
+            <th scope="col"><span>Day of Week</span></th>
 
-          <!-- ng for loop with up to index-->
+            <!-- ng for loop with up to index-->
 
-          <th scope="col" *ngFor="let headerColName of headersTimeTable" data-cy="entityTable">
-            <span>{{ headerColName }}</span>
-          </th>
+            <th scope="col" *ngFor="let headerColName of headersTimeTable" data-cy="entityTable">
+              <span>{{ headerColName }}</span>
+            </th>
 
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let generateTimeTable of generateTimeTables" data-cy="entityTable">
-          <td>{{ generateTimeTable.weekName }}</td>
-          <td *ngFor="let period of generateTimeTable.periods">
-            {{ period.subjectName }}<br />
-            - {{ period.lecturerName }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let generateTimeTable of generateTimeTables" data-cy="entityTable">
+            <td>{{ generateTimeTable.weekName }}</td>
+            <td *ngFor="let period of generateTimeTable.periods">
+              {{ period.subjectName }}<br />
+              - {{ period.lecturerName }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
